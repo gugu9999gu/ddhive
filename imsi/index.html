@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Payload Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+        }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+        fbq("init", "1344126037254043");
+        fbq("track", "PageView");
+    </script>
+    <!-- End Meta Pixel Code -->
+    <script defer src="pixel.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="app.js"></script>
+</head>
+<body>
+    <!-- Meta Pixel Code (noscript) -->
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1344126037254043&ev=PageView&noscript=1" alt="">
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">Pixel Payload Shop</a>
+        </div>
+        <nav class="nav">
+            <a href="#products">상품</a>
+            <a href="#about">소개</a>
+            <button id="cart-toggle" class="cart-button" aria-label="장바구니 열기">
+                장바구니 <span id="cart-count">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>픽셀 페이로드 기반 스마트 쇼핑몰</h1>
+                <p>페이지 뷰부터 구매까지, 모든 이벤트가 픽셀 페이로드로 자동 추적됩니다.</p>
+                <a href="#products" class="cta">지금 둘러보기</a>
+            </div>
+            <div class="hero-visual">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="온라인 쇼핑 이미지">
+            </div>
+        </section>
+
+        <section id="products" class="products-section">
+            <h2>추천 상품</h2>
+            <div id="product-grid" class="product-grid"></div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2>픽셀 페이로드란?</h2>
+            <p>
+                픽셀 페이로드는 사용자의 행동을 추적해 퍼널 전체를 데이터로 연결하는 이벤트 수집 시스템입니다.
+                이 데모는 기본적인 쇼핑 흐름(페이지뷰, 장바구니 담기, 결제)을 예제로 제공하며, 모든 이벤트는 픽셀 페이로드로 전송됩니다.
+            </p>
+        </section>
+    </main>
+
+    <aside id="cart-panel" class="cart-panel" aria-hidden="true">
+        <div class="cart-header">
+            <h3>장바구니</h3>
+            <button id="cart-close" class="close-button" aria-label="장바구니 닫기">×</button>
+        </div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-summary">
+            <div class="buyer-info">
+                <h4>구매자 정보</h4>
+                <label for="buyer-name">
+                    <span>이름</span>
+                    <input type="text" id="buyer-name" class="buyer-input" placeholder="홍길동" autocomplete="name">
+                </label>
+                <label for="buyer-email">
+                    <span>이메일</span>
+                    <input type="email" id="buyer-email" class="buyer-input" placeholder="example@email.com" autocomplete="email">
+                </label>
+            </div>
+            <div class="summary-row">
+                <span>합계</span>
+                <strong id="cart-total">₩0</strong>
+            </div>
+            <button id="checkout-button" class="checkout-button">결제하기</button>
+        </div>
+    </aside>
+
+    <template id="product-card-template">
+        <article class="product-card">
+            <a class="product-link">
+                <img class="product-image" alt="">
+                <div class="product-info">
+                    <h3 class="product-title"></h3>
+                    <p class="product-description"></p>
+                </div>
+            </a>
+            <div class="product-footer">
+                <span class="product-price"></span>
+                <button class="add-to-cart">담기</button>
+            </div>
+        </article>
+    </template>
+
+    <template id="cart-item-template">
+        <div class="cart-item">
+            <div>
+                <p class="cart-item-title"></p>
+                <p class="cart-item-quantity"></p>
+            </div>
+            <div>
+                <span class="cart-item-price"></span>
+                <button class="cart-item-remove" aria-label="상품 삭제">삭제</button>
+            </div>
+        </div>
+    </template>
+</body>
+</html>

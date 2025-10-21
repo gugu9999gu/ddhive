@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 상세 | Pixel Payload Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+        }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+        fbq("init", "1344126037254043");
+        fbq("track", "PageView");
+    </script>
+    <!-- End Meta Pixel Code -->
+    <script defer src="pixel.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="app.js"></script>
+    <script defer src="product.js"></script>
+</head>
+<body>
+    <!-- Meta Pixel Code (noscript) -->
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1344126037254043&ev=PageView&noscript=1" alt="">
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    <header class="site-header">
+        <div class="logo">
+            <a href="index.html">Pixel Payload Shop</a>
+        </div>
+        <nav class="nav">
+            <a href="index.html#products">상품</a>
+            <a href="index.html#about">소개</a>
+            <button id="cart-toggle" class="cart-button" aria-label="장바구니 열기">
+                장바구니 <span id="cart-count">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="product-detail">
+            <nav class="breadcrumb">
+                <a href="index.html">홈</a>
+                <span>/</span>
+                <span id="breadcrumb-current">상품</span>
+            </nav>
+            <div class="product-detail-content" id="detail-content">
+                <div class="product-detail-gallery">
+                    <div class="product-hero">
+                        <img id="detail-image" src="" alt="">
+                    </div>
+                    <div class="product-gallery-thumbs" id="detail-thumbnails"></div>
+                </div>
+                <div class="product-detail-info">
+                    <span class="product-category" id="detail-category"></span>
+                    <h1 id="detail-title"></h1>
+                    <p id="detail-description"></p>
+                    <div class="product-detail-price" id="detail-price"></div>
+                    <div class="detail-rating">
+                        <div class="rating-stars" id="detail-rating-stars" aria-hidden="true"></div>
+                        <div class="rating-meta">
+                            <strong id="detail-rating-value">0.0</strong>
+                            <span id="detail-review-count">0개의 리뷰</span>
+                        </div>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="primary" id="detail-add-to-cart">장바구니 담기</button>
+                        <button class="secondary" id="detail-go-to-cart">장바구니 보기</button>
+                    </div>
+                    <div>
+                        <h3>주요 특징</h3>
+                        <ul class="detail-highlights" id="detail-highlights"></ul>
+                    </div>
+                </div>
+            </div>
+            <div id="detail-error" hidden>
+                <p>요청하신 상품을 찾을 수 없습니다. 다른 상품을 둘러봐 주세요.</p>
+                <a class="cta" href="index.html#products">상품 목록으로 돌아가기</a>
+            </div>
+        </section>
+
+        <section class="product-story">
+            <h2>상품 소개</h2>
+            <div class="product-story-content">
+                <img id="detail-intro-image" src="" alt="">
+                <p id="detail-long-description"></p>
+            </div>
+        </section>
+
+        <section class="product-reviews" id="reviews">
+            <div class="review-header">
+                <h2>구매자 리뷰</h2>
+                <div class="review-summary-meta">
+                    <div class="rating-stars" id="review-rating-stars" aria-hidden="true"></div>
+                    <div class="review-summary-text">
+                        <strong id="review-average">0.0</strong>
+                        <span id="review-count-summary">0명 평가</span>
+                    </div>
+                </div>
+            </div>
+            <div id="review-list" class="review-list"></div>
+        </section>
+
+        <section class="related-products">
+            <h2>다른 추천 상품</h2>
+            <div id="related-grid" class="product-grid"></div>
+        </section>
+    </main>
+
+    <aside id="cart-panel" class="cart-panel" aria-hidden="true">
+        <div class="cart-header">
+            <h3>장바구니</h3>
+            <button id="cart-close" class="close-button" aria-label="장바구니 닫기">×</button>
+        </div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-summary">
+            <div class="buyer-info">
+                <h4>구매자 정보</h4>
+                <label for="buyer-name">
+                    <span>이름</span>
+                    <input type="text" id="buyer-name" class="buyer-input" placeholder="홍길동" autocomplete="name">
+                </label>
+                <label for="buyer-email">
+                    <span>이메일</span>
+                    <input type="email" id="buyer-email" class="buyer-input" placeholder="example@email.com" autocomplete="email">
+                </label>
+            </div>
+            <div class="summary-row">
+                <span>합계</span>
+                <strong id="cart-total">₩0</strong>
+            </div>
+            <button id="checkout-button" class="checkout-button">결제하기</button>
+        </div>
+    </aside>
+
+    <template id="product-card-template">
+        <article class="product-card">
+            <a class="product-link">
+                <img class="product-image" alt="">
+                <div class="product-info">
+                    <h3 class="product-title"></h3>
+                    <p class="product-description"></p>
+                </div>
+            </a>
+            <div class="product-footer">
+                <span class="product-price"></span>
+                <button class="add-to-cart">담기</button>
+            </div>
+        </article>
+    </template>
+
+    <template id="cart-item-template">
+        <div class="cart-item">
+            <div>
+                <p class="cart-item-title"></p>
+                <p class="cart-item-quantity"></p>
+            </div>
+            <div>
+                <span class="cart-item-price"></span>
+                <button class="cart-item-remove" aria-label="상품 삭제">삭제</button>
+            </div>
+        </div>
+    </template>
+</body>
+</html>
