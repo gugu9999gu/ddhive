@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목우촌 강아지 간식 자가진단 체크리스트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f7f9fc;
+            min-height: 100vh;
+            padding: 24px;
+            color: #2b2f38;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e9edf3;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 38px 28px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .header .emoji {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .hidden { display: none !important; }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro-text {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .questions-section {
+            margin-bottom: 40px;
+            min-height: 420px;
+        }
+
+        .question-group {
+            display: none;
+            margin-bottom: 30px;
+            padding: 28px 24px;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #eef2f7;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .question-group.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-group:hover {
+            border-color: #d9e1ff;
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.08);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .question-text {
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+            margin-top: 10px;
+        }
+
+        .options {
+            margin-left: 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .score-label {
+            font-size: 12px;
+            color: #999;
+            margin-left: auto;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .button-section {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-prev, .btn-next {
+            background: #5f73f3;
+            color: white;
+            min-width: 120px;
+        }
+
+        .btn-prev:hover:not(:disabled), .btn-next:hover:not(:disabled) {
+            background: #5163ea;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(95, 115, 243, 0.35);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-width: 180px;
+            display: none;
+        }
+
+        .btn-submit.show {
+            display: inline-block;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #666;
+            min-width: 120px;
+            display: none;
+        }
+
+        .btn-reset.show {
+            display: inline-block;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .progress-info {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .recommended-products {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .product-category {
+            margin-bottom: 20px;
+        }
+
+        .product-category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .product-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .product-item {
+            padding: 10px 0;
+            color: #555;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-item:before {
+            content: "✓";
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .result-reason {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            text-align: left;
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .warning-text {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #ecf0f6;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 10px;
+            margin-bottom: 28px;
+            border: 1px solid #e5ebf3;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6a7efc 0%, #8b6bd9 100%);
+            width: 10%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .question-group {
+                padding: 15px;
+            }
+
+            .options {
+                margin-left: 40px;
+            }
+
+            .button-section {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji">🐶</div>
+            <h1>목우촌 강아지 간식</h1>
+            <p><strong>자가진단 체크리스트</strong></p>
+            <p class="subtitle">"우리 강아지에게 더 잘 맞는 건 츄르일까, 져키일까?"</p>
+        </div>
+
+        <div class="content">
+            <div class="intro-text">
+                <strong>안녕하세요! 👋</strong><br><br>
+                목우촌은 우리 강아지의 성향과 건강 상태에 맞는 최고의 간식을 추천해드립니다.<br>
+                아래 문제들을 읽고 가장 맞는 답변을 선택해주세요. (소요시간: 약 3-4분)<br>
+                <strong>당신의 답변이 더 정확할수록, 더 나은 맞춤형 추천을 받을 수 있습니다!</strong>
+            </div>
+
+            <div class="progress-info">
+                <span id="currentQuestion">1</span> / 10 문항
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <form id="checklistForm">
+                <div class="questions-section">
+                    <!-- Q1 -->
+                    <div class="question-group active" data-question="1">
+                        <span class="question-number">1</span>
+                        <span class="question-text">우리 강아지의 크기는?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q1_1" name="q1" value="small" required>
+                                <label for="q1_1">소형견 (5kg 이하)</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q1_2" name="q1" value="medium">
+                                <label for="q1_2">중형견 (5~15kg)</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q1_3" name="q1" value="large">
+                                <label for="q1_3">대형견 (15~30kg)</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q1_4" name="q1" value="extra_large">
+                                <label for="q1_4">초대형견 (30kg 이상)</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question-group" data-question="2">
+                        <span class="question-number">2</span>
+                        <span class="question-text">강아지의 성격은 어떤 편인가요?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q2_1" name="q2" value="active" required>
+                                <label for="q2_1">활발하고 에너지가 넘쳐요 (매우 활동적)</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q2_2" name="q2" value="normal">
+                                <label for="q2_2">일반적으로 활동적인 편이에요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q2_3" name="q2" value="calm">
+                                <label for="q2_3">조용하고 차분한 편이에요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q2_4" name="q2" value="lazy">
+                                <label for="q2_4">어디서나 쉽게 잠들어요 (게으른 편)</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="question-group" data-question="3">
+                        <span class="question-number">3</span>
+                        <span class="question-text">강아지가 간식을 먹을 때 선호하는 방식은?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q3_1" name="q3" value="chew" required>
+                                <label for="q3_1">천천히 씹고 음미하는 것을 좋아해요</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q3_2" name="q3" value="quick">
+                                <label for="q3_2">빨리 먹어치우는 편이에요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q3_3" name="q3" value="lick">
+                                <label for="q3_3">핥아먹거나 빨아먹는 것을 선호해요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q3_4" name="q3" value="play">
+                                <label for="q3_4">간식을 가지고 놀면서 먹어요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question-group" data-question="4">
+                        <span class="question-number">4</span>
+                        <span class="question-text">강아지의 이 부분이 특히 민감하거나 신경써야 하나요?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q4_1" name="q4" value="eye" required>
+                                <label for="q4_1">눈 건강 (눈물자국, 안구건조)</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q4_2" name="q4" value="joint">
+                                <label for="q4_2">관절 건강 (절뚝거림, 뛰는 것 꺼려함)</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q4_3" name="q4" value="skin">
+                                <label for="q4_3">피부/모질 (가려움증, 비듬, 윤기부족)</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q4_4" name="q4" value="brain">
+                                <label for="q4_4">인지기능 (노령견, 집중력 저하)</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q4_5" name="q4" value="healthy">
+                                <label for="q4_5">특별히 신경쓸 부분이 없어요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="question-group" data-question="5">
+                        <span class="question-number">5</span>
+                        <span class="question-text">강아지가 훈련이나 학습에 얼마나 잘 반응하나요?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q5_1" name="q5" value="very_good" required>
+                                <label for="q5_1">매우 똑똑하고 훈련을 잘 따라해요</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q5_2" name="q5" value="good">
+                                <label for="q5_2">충분히 똑똑하고 배우고 싶어해요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q5_3" name="q5" value="average">
+                                <label for="q5_3">보통이에요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q5_4" name="q5" value="stubborn">
+                                <label for="q5_4">독립적이고 고집이 있어요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="question-group" data-question="6">
+                        <span class="question-number">6</span>
+                        <span class="question-text">간식을 주는 주된 목적은?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q6_1" name="q6" value="reward" required>
+                                <label for="q6_1">훈련 보상/칭찬하기 위해</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q6_2" name="q6" value="puzzle">
+                                <label for="q6_2">두뇌 자극/노즈워크/문제풀이</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q6_3" name="q6" value="health">
+                                <label for="q6_3">건강/영양 보충을 위해</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q6_4" name="q6" value="snack">
+                                <label for="q6_4">그냥 간단한 간식으로</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q7 -->
+                    <div class="question-group" data-question="7">
+                        <span class="question-number">7</span>
+                        <span class="question-text">강아지가 자주 받는 질환이나 예방이 필요한 부분은?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q7_1" name="q7" value="none" required>
+                                <label for="q7_1">특별한 질환이 없어요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q7_2" name="q7" value="senior">
+                                <label for="q7_2">고령견(노령견)이에요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q7_3" name="q7" value="allergy">
+                                <label for="q7_3">음식 알레르기가 있어요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q7_4" name="q7" value="digestive">
+                                <label for="q7_4">소화가 민감해요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q7_5" name="q7" value="multiple">
+                                <label for="q7_5">여러 가지 신경써야 할 부분이 있어요</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="question-group" data-question="8">
+                        <span class="question-number">8</span>
+                        <span class="question-text">하루에 강아지와 놀아주는 시간은?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q8_1" name="q8" value="over2h" required>
+                                <label for="q8_1">2시간 이상 (매우 활동적)</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q8_2" name="q8" value="1to2h">
+                                <label for="q8_2">1~2시간</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q8_3" name="q8" value="30to1h">
+                                <label for="q8_3">30분~1시간</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q8_4" name="q8" value="under30m">
+                                <label for="q8_4">30분 미만</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q9 -->
+                    <div class="question-group" data-question="9">
+                        <span class="question-number">9</span>
+                        <span class="question-text">강아지의 입/치아 상태는?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q9_1" name="q9" value="healthy" required>
+                                <label for="q9_1">건강하고 튼튼해요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q9_2" name="q9" value="sensitive">
+                                <label for="q9_2">치아가 약간 민감해요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q9_3" name="q9" value="bad">
+                                <label for="q9_3">치아 상태가 좋지 않아요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q9_4" name="q9" value="tartar">
+                                <label for="q9_4">치석이 많아요/이미 치료받았어요</label>
+                                <span class="score-label">2점</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="question-group" data-question="10">
+                        <span class="question-number">10</span>
+                        <span class="question-text">우리 강아지의 간식 선호도를 알고 계신가요?</span>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="q10_1" name="q10" value="chew_lover" required>
+                                <label for="q10_1">오래 씹을 수 있는 간식을 좋아해요</label>
+                                <span class="score-label">3점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q10_2" name="q10" value="soft_lover">
+                                <label for="q10_2">부드러운 간식을 더 좋아해요</label>
+                                <span class="score-label">0점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q10_3" name="q10" value="both">
+                                <label for="q10_3">둘 다 잘 먹어요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="q10_4" name="q10" value="unsure">
+                                <label for="q10_4">아직 정확히 모르겠어요</label>
+                                <span class="score-label">1점</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-section">
+                    <div class="navigation-buttons">
+                        <button type="button" class="btn btn-prev" id="prevBtn" disabled>← 이전</button>
+                        <button type="button" class="btn btn-next" id="nextBtn">다음 →</button>
+                    </div>
+                    <button type="submit" class="btn btn-submit" id="submitBtn">🎯 맞춤 제품 추천받기</button>
+                    <button type="reset" class="btn btn-reset" id="resetBtn">다시 시작하기</button>
+                </div>
+            </form>
+
+            <div class="result-section" id="resultSection">
+                <div class="result-title" id="resultTitle"></div>
+                <div class="recommended-products" id="recommendedProducts"></div>
+                <div class="result-reason" id="resultReason"></div>
+                <div class="warning-text">
+                    💡 <strong>Tip:</strong> 이 추천은 강아지의 성향을 바탕으로 한 가이드라인입니다. 최종 구매 결정 전에 수의사와 상담하시길 권장합니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('checklistForm');
+        const resultSection = document.getElementById('resultSection');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressFill = document.getElementById('progressFill');
+        const currentQuestionSpan = document.getElementById('currentQuestion');
+        
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+
+        // 질문 표시 업데이트
+        function updateQuestionDisplay() {
+            // 모든 질문 숨기기
+            document.querySelectorAll('.question-group').forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // 현재 질문 보이기
+            const activeQuestion = document.querySelector(`[data-question="${currentQuestion}"]`);
+            if (activeQuestion) {
+                activeQuestion.classList.add('active');
+            }
+            
+            // 진행도 업데이트
+            currentQuestionSpan.textContent = currentQuestion;
+            const progress = (currentQuestion / totalQuestions) * 100;
+            progressFill.style.width = progress + '%';
+            
+            // 버튼 상태 업데이트
+            prevBtn.disabled = currentQuestion === 1;
+            
+            // 헤더/인트로 표시 제어: 첫 문항에서만 보이기
+            const headerEl = document.querySelector('.header');
+            const introEl = document.querySelector('.intro-text');
+            if (currentQuestion === 1) {
+                headerEl.classList.remove('hidden');
+                introEl.classList.remove('hidden');
+            } else {
+                headerEl.classList.add('hidden');
+                introEl.classList.add('hidden');
+            }
+
+            // 마지막 질문이고 답변했을 때만 제출 버튼 표시
+            if (currentQuestion === totalQuestions) {
+                const lastAnswer = document.querySelector(`[data-question="${currentQuestion}"] input[type="radio"]:checked`);
+                if (lastAnswer) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.classList.add('show');
+                } else {
+                    nextBtn.style.display = 'inline-block';
+                    submitBtn.classList.remove('show');
+                }
+            } else {
+                nextBtn.style.display = 'inline-block';
+                submitBtn.classList.remove('show');
+            }
+        }
+
+        // 이전 버튼
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                updateQuestionDisplay();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        // 다음 버튼
+        nextBtn.addEventListener('click', () => {
+            const currentAnswer = document.querySelector(`[data-question="${currentQuestion}"] input[type="radio"]:checked`);
+            
+            if (!currentAnswer) {
+                alert('답변을 선택해주세요!');
+                return;
+            }
+            
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                updateQuestionDisplay();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        // 라디오 버튼 변경 시
+        form.addEventListener('change', (e) => {
+            if (e.target.type === 'radio') {
+                // 선택된 옵션 스타일 업데이트
+                const questionGroup = e.target.closest('.question-group');
+                questionGroup.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                e.target.closest('.option').classList.add('selected');
+                
+                // 마지막 질문일 경우 제출 버튼 표시
+                updateQuestionDisplay();
+            }
+        });
+
+        // 점수 계산 및 추천 로직
+        const recommendations = {
+            jerky_high: {
+                title: "🥩 저키 애호가형 강아지!",
+                description: "천천히 씹고 음미하는 스타일이에요",
+                products: {
+                    "저키 추천": [
+                        "노즈워크 소고기 - 두뇌 자극에 최고!",
+                        "노즈워크 황태 - 치아 건강과 영양 동시에!",
+                        "노즈워크 소고기+황태 - 다양한 맛의 경험!"
+                    ]
+                },
+                reason: "당신의 강아지는 <strong>활동적이고 지적인 성향</strong>으로 보입니다. 씹는 과정 자체를 즐기기 때문에 저키는 단순한 간식이 아닌 <strong>두뇌 자극과 스트레스 해소의 활동</strong>이 될 수 있어요. 노즈워크 저키는 강아지가 냄새를 맡으며 찾고 씹고 음미하는 전 과정에서 만족감을 느낄 수 있습니다."
+            },
+            jerky_medium: {
+                title: "🐾 균형잡힌 강아지!",
+                description: "다양한 간식을 즐기는 타입이에요",
+                products: {
+                    "저키 추천": [
+                        "일반져키 소고기(중대형견) - 든든한 한끼!",
+                        "노즈워크 황태 - 건강과 재미 동시에!"
+                    ],
+                    "츄르 추천": [
+                        "소고기 츄르 - 빠른 보상에 최고!"
+                    ]
+                },
+                reason: "당신의 강아지는 <strong>어느 정도 활동적이면서도 편안함을 좋아하는 성향</strong>입니다. 저키와 츄르를 상황에 맞게 번갈아 사용하면 좋습니다. <strong>훈련 시에는 츄르</strong>로 빠른 보상을, <strong>여유로운 시간에는 저키</strong>로 장시간 만족감을 주세요!"
+            },
+            churu_soft: {
+                title: "🍯 부드러운 것을 선호하는 강아지!",
+                description: "빠르고 달콤한 만족감을 원해요",
+                products: {
+                    "츄르 추천": [
+                        "소고기 츄르 - 강아지 입맛을 사로잡는 맛!",
+                        "고구마황태 츄르 - 건강함과 맛의 조화!"
+                    ]
+                },
+                reason: "<strong>활동 수준이 낮거나 치아가 약한 강아지</strong>에게는 츄르가 최고입니다. 빨아먹거나 핥아먹는 방식으로 <strong>쉽고 빠르게 만족감</strong>을 줄 수 있어요. 특히 <strong>훈련 시 빠른 보상</strong>이 필요할 때 효과적입니다."
+            },
+            health_focus: {
+                title: "💊 건강 케어 강아지!",
+                description: "영양과 건강을 함께 챙기는 거예요",
+                products: {
+                    "저키 추천": [
+                        "노즈워크 황태 - 오메가3 풍부!"
+                    ],
+                    "기본 간식": [
+                        "소고기 츄르"
+                    ]
+                },
+                reason: "<strong>특정 건강 관리가 필요한 강아지</strong>라면 기본 간식과 함께 영양제를 병행하세요."
+            }
+        };
+
+        // 영양제 추천 로직
+        function getSupplementRecommendation(answers) {
+            const supplements = [];
+            
+            if (answers.q4 === 'eye') {
+                supplements.push("👁️ <strong>눈 영양제</strong> - 눈 건강 관리");
+            }
+            if (answers.q4 === 'joint' || answers.q7 === 'senior') {
+                supplements.push("🦴 <strong>관절 영양제</strong> - 활동성 향상");
+            }
+            if (answers.q4 === 'skin') {
+                supplements.push("✨ <strong>피부영양제</strong> - 모질 관리");
+            }
+            if (answers.q4 === 'brain' || answers.q7 === 'senior') {
+                supplements.push("🧠 <strong>뇌영양제</strong> - 인지기능 강화");
+            }
+            
+            return supplements;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 모든 질문에 답했는지 확인
+            const allAnswered = Array.from({length: totalQuestions}, (_, i) => i + 1).every(q => {
+                return document.querySelector(`[data-question="${q}"] input[type="radio"]:checked`);
+            });
+
+            if (!allAnswered) {
+                alert('모든 질문에 답변해주세요!');
+                return;
+            }
+
+            // 폼 데이터 수집
+            const formData = new FormData(form);
+            const answers = {
+                q1: formData.get('q1'),
+                q2: formData.get('q2'),
+                q3: formData.get('q3'),
+                q4: formData.get('q4'),
+                q5: formData.get('q5'),
+                q6: formData.get('q6'),
+                q7: formData.get('q7'),
+                q8: formData.get('q8'),
+                q9: formData.get('q9'),
+                q10: formData.get('q10')
+            };
+
+            // 점수 계산
+            let score = 0;
+            const scoreMap = {
+                'q1_small': 0, 'q1_medium': 1, 'q1_large': 2, 'q1_extra_large': 3,
+                'q2_active': 3, 'q2_normal': 2, 'q2_calm': 1, 'q2_lazy': 0,
+                'q3_chew': 3, 'q3_quick': 0, 'q3_lick': 2, 'q3_play': 2,
+                'q4_eye': 1, 'q4_joint': 2, 'q4_skin': 1, 'q4_brain': 2, 'q4_healthy': 0,
+                'q5_very_good': 3, 'q5_good': 2, 'q5_average': 1, 'q5_stubborn': 0,
+                'q6_reward': 3, 'q6_puzzle': 3, 'q6_health': 2, 'q6_snack': 1,
+                'q7_none': 0, 'q7_senior': 2, 'q7_allergy': 1, 'q7_digestive': 1, 'q7_multiple': 3,
+                'q8_over2h': 3, 'q8_1to2h': 2, 'q8_30to1h': 1, 'q8_under30m': 0,
+                'q9_healthy': 0, 'q9_sensitive': 1, 'q9_bad': 2, 'q9_tartar': 2,
+                'q10_chew_lover': 3, 'q10_soft_lover': 0, 'q10_both': 1, 'q10_unsure': 1
+            };
+
+            for (let q in answers) {
+                const key = q + '_' + answers[q];
+                if (scoreMap[key] !== undefined) {
+                    score += scoreMap[key];
+                }
+            }
+
+            // 추천 결정 로직
+            let recommendation;
+            const isChewLover = answers.q3 === 'chew' || answers.q10 === 'chew_lover';
+            const isSoftLover = answers.q3 === 'quick' || answers.q10 === 'soft_lover';
+            const hasHealthConcern = answers.q4 !== 'healthy' || answers.q7 !== 'none';
+
+            if (hasHealthConcern) {
+                recommendation = recommendations.health_focus;
+            } else if (isChewLover && score >= 12) {
+                recommendation = recommendations.jerky_high;
+            } else if (isSoftLover || score <= 8) {
+                recommendation = recommendations.churu_soft;
+            } else {
+                recommendation = recommendations.jerky_medium;
+            }
+
+            // 결과 표시
+            displayResult(recommendation, getSupplementRecommendation(answers), score);
+            
+            // 결과 섹션으로 이동하고 버튼 표시
+            submitBtn.classList.remove('show');
+            resetBtn.classList.add('show');
+        });
+
+        function displayResult(recommendation, supplements, totalScore) {
+            let productsHTML = '';
+            
+            for (let category in recommendation.products) {
+                productsHTML += `
+                    <div class="product-category">
+                        <div class="product-category-title">${category}</div>
+                        <ul class="product-list">
+                            ${recommendation.products[category].map(product => 
+                                `<li class="product-item">${product}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            if (supplements.length > 0) {
+                productsHTML += `
+                    <div class="product-category">
+                        <div class="product-category-title">🌟 추가 영양 관리</div>
+                        <ul class="product-list">
+                            ${supplements.map(supplement => 
+                                `<li class="product-item">${supplement}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            document.getElementById('resultTitle').innerHTML = 
+                `${recommendation.title}<br><small style="font-size:16px; font-weight:normal; opacity:0.8;">당신의 강아지 타입 점수: ${totalScore}/30</small>`;
+            
+            document.getElementById('recommendedProducts').innerHTML = productsHTML;
+            document.getElementById('resultReason').innerHTML = recommendation.reason;
+            
+            resultSection.classList.add('show');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // 리셋 버튼
+        form.addEventListener('reset', function() {
+            resultSection.classList.remove('show');
+            currentQuestion = 1;
+            updateQuestionDisplay();
+            resetBtn.classList.remove('show');
+            
+            // 모든 선택된 옵션 스타일 제거
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // 헤더/인트로 다시 표시
+            document.querySelector('.header')?.classList.remove('hidden');
+            document.querySelector('.intro-text')?.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 초기화
+        updateQuestionDisplay();
+    </script>
+</body>
+</html>
