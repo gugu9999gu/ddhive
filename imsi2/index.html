@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제품 상세 | 에어핏 무선 이어버드 Pro</title>
+  <meta name="description" content="고음질, 액티브 노이즈 캔슬링, 초경량 착용감의 에어핏 무선 이어버드 Pro. 오늘만 10% 할인 + 무료배송 혜택을 받아보세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:," />
+</head>
+<body data-page="product">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="홈으로">
+        <span class="logo-mark">◎</span>
+        <span class="logo-text">AirFit</span>
+      </a>
+      <nav class="header-actions">
+        <a class="link" href="checkout.html" aria-label="장바구니 및 결제">
+          장바구니 <span class="cart-count" id="cartCountHeader">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <aside class="promo-bar" role="region" aria-label="프로모션 배너">
+    <div class="container promo-inner">
+      <div class="promo-message">
+        <strong>오늘만</strong> NOW10 쿠폰으로 <strong>즉시 10% 할인</strong> + <strong>무료배송</strong>
+      </div>
+      <div class="promo-countdown" aria-live="polite">
+        마감까지 <span id="countdownText">--:--</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="container product-page">
+    <section class="product">
+      <div class="product-gallery">
+        <img id="mainImage" class="product-image" alt="에어핏 무선 이어버드 Pro 제품 이미지" src="https://sitem.ssgcdn.com/48/29/95/item/1000550952948_i1_750.jpg" />
+        <div class="thumbs">
+          <img class="thumb is-active" alt="제품 썸네일 1" src="https://sitem.ssgcdn.com/48/29/95/item/1000550952948_i1_750.jpg" />
+          <img class="thumb" alt="제품 썸네일 2" src="https://gdimg.gmarket.co.kr/3503905406/still/280?ver=1706678903" />
+          <img class="thumb" alt="제품 썸네일 3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNImB8yc4uf7HmYD8-GQGK5v3JBeDyHZ_7xqsZ2L-puZnxJGcHltzzjsZOWctLRBzjDIk&usqp=CAU" />
+        </div>
+      </div>
+
+      <div class="product-detail">
+        <h1 class="product-title">에어핏 무선 이어버드 Pro</h1>
+        <div class="rating">
+          <span class="stars" aria-label="평점 4.8점">★★★★★</span>
+          <a href="#reviews" class="reviews-link">4.8 / 5 (1,284개 후기)</a>
+          <span id="stockBadge" class="stock-badge">재고 여유</span>
+        </div>
+
+        <div class="price-row">
+          <div class="price">
+            <span class="current" id="priceCurrent">₩59,000</span>
+            <span class="compare" id="priceCompare">₩89,000</span>
+            <span class="price-badge">34% OFF</span>
+          </div>
+          <div class="savings" id="savingsInfo">지금 구매 시 30,000원 절약</div>
+        </div>
+
+        <div class="social-proof" id="socialProof">방금 2명이 이 상품을 장바구니에 담았습니다</div>
+
+        <form class="options" id="productForm">
+          <div class="field">
+            <label class="label">색상</label>
+            <div class="choices">
+              <label class="choice">
+                <input type="radio" name="color" value="화이트" checked />
+                <span>화이트</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="color" value="블랙" />
+                <span>블랙</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">보증 연장</label>
+            <label class="toggle">
+              <input type="checkbox" id="warranty" />
+              <span>추가 1년 보증 (+₩9,900)</span>
+            </label>
+          </div>
+
+          <div class="field qty-field">
+            <label class="label">수량</label>
+            <div class="qty">
+              <button type="button" class="qty-btn" data-action="dec" aria-label="수량 감소">−</button>
+              <input type="number" id="qty" min="1" value="1" aria-label="수량 입력" />
+              <button type="button" class="qty-btn" data-action="inc" aria-label="수량 증가">＋</button>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="addToCartBtn" class="btn btn-secondary">장바구니 담기</button>
+            <button type="button" id="buyNowBtn" class="btn btn-primary">바로 구매</button>
+          </div>
+
+          <div class="trust">
+            <span>✔ 30일 무료 반품</span>
+            <span>✔ 1년 무상 A/S</span>
+            <span>✔ 내일 도착(평일 15시 전 주문)</span>
+          </div>
+        </form>
+
+        <section class="benefits">
+          <h2>왜 에어핏 Pro 인가요?</h2>
+          <ul>
+            <li>액티브 노이즈 캔슬링으로 몰입감 있는 사운드</li>
+            <li>최대 36시간 사용 가능한 배터리</li>
+            <li>IPX4 생활 방수, 운동도 문제없어요</li>
+            <li>초경량 설계로 장시간 착용도 편안</li>
+          </ul>
+        </section>
+
+        <section class="faq">
+          <h2>자주 묻는 질문</h2>
+          <details>
+            <summary>호환 가능한 기기는 무엇인가요?</summary>
+            <p>iOS, Android, Windows, Mac 모두 블루투스로 사용 가능합니다.</p>
+          </details>
+          <details>
+            <summary>보증 연장은 무엇을 포함하나요?</summary>
+            <p>기본 1년 + 추가 1년, 총 2년 동안 무상 수리/교환이 가능합니다(소모품 제외).</p>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <h2>실구매자 후기</h2>
+      <article class="review">
+        <div class="review-header">★★★★★ <span>노캔 끝내줍니다</span></div>
+        <p>지하철 소음이 확 줄고 통화 품질도 좋아요. 착용감도 가벼워서 오래 써도 편합니다.</p>
+      </article>
+      <article class="review">
+        <div class="review-header">★★★★☆ <span>가성비 최고</span></div>
+        <p>이 가격대에 이 성능이면 말 다 했죠. 배송도 빠르고 포장도 깔끔했어요.</p>
+      </article>
+    </section>
+  </main>
+
+  <div class="sticky-bar" role="region" aria-label="하단 고정 주문 바">
+    <div class="container sticky-inner">
+      <div class="sticky-info">
+        <div class="sticky-title">에어핏 무선 이어버드 Pro</div>
+        <div class="sticky-price" id="stickyPrice">₩59,000</div>
+      </div>
+      <div class="sticky-actions">
+        <button type="button" id="stickyCartBtn" class="btn btn-secondary btn-sm">장바구니</button>
+        <button type="button" id="stickyBuyBtn" class="btn btn-primary btn-sm">지금 주문</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© 2025 AirFit. All rights reserved.</div>
+      <div class="footer-badges">보안결제 · 개인정보보호 · 안전거래</div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
